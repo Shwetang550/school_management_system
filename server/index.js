@@ -3,6 +3,12 @@ const express = require('express');
 
 const app = express();
 
+// routes
+const studentRoutes = require('./routes/students');
+
+// setting up default student route
+app.use('/api/students', studentRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 // mongodb connection (locally) and port listener
