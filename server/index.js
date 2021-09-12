@@ -6,6 +6,8 @@ const app = express();
 // routes
 const studentRoutes = require('./routes/students');
 
+// for getting post req (data from body)
+app.use(express.json());
 // setting up default student route
 app.use('/api/students', studentRoutes);
 
@@ -16,7 +18,5 @@ mongoose.connect('mongodb://localhost/management')
     .then(() => app.listen(PORT, () => console.log(`Successfully connected to Database and running on Port ${PORT}...`)))
     .catch(err => console.log(err.message));
 
-// for getting post req (data from body)
-app.use(express.json());
 
 // app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
