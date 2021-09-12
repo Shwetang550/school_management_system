@@ -1,15 +1,24 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+// cors
+app.use(cors());
 
 // routes
 const studentRoutes = require('./routes/students');
 
 // for getting post req (data from body)
-app.use(express.json());
+// app.use(express.json());
+app.use(bodyParser.json({ limit: "20mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
+
 // setting up default student route
 app.use('/api/students', studentRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 

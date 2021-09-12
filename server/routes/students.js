@@ -11,7 +11,7 @@ const studentSchema = mongoose.Schema({
     },
     regNo: {
         type: Number,
-        required: true,
+        required: true
     },
     grade: {
         type: String,
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
     // const student = req.body;
     const newStudent = new Student({
         name: req.body.name,
-        registrationNumber: req.body.registrationNumber,
+        regNo: req.body.regNo,
         grade: req.body.grade,
         section: req.body.section
     });

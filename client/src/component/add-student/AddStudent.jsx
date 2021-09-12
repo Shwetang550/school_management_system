@@ -1,5 +1,8 @@
 import React from 'react'
 
+// axios
+import axios from 'axios';
+
 // material component
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
@@ -38,9 +41,12 @@ const AddStudent = () => {
 
     const classes = useStyles();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(student);
+        
+        await axios.post('http://localhost:5000/api/students', student)
+            .then(result => console.log(result))
+            .catch(err => console.log(err.message));
     }
 
     return (
