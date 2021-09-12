@@ -1,0 +1,25 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    background-color: #f8f8ff;
+    width: 100%;
+
+    position: absolute;
+    bottom: -56px;
+}
+
+.footer > p {
+    color: gray;
+}
+
+.footer > p > a {
+    text-decoration: none;
+    color: gray;
+}
+
+.footer > p > a:hover {
+    text-decoration: underline;
+}
