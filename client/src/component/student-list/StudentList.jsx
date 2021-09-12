@@ -58,7 +58,9 @@ const StudentList = ({addStudent}) => {
     const classes = useStyles();
 
     const handleDelete = async (id) => {
-        // await axios.delete('http://localhost:5000/')
+        await axios.delete(`http://localhost:5000/api/students/${id}`)
+            .then(result => alert(result.data.name + " Deleted"))
+            .catch(err => console.log(err.message));
     }
 
     useEffect(() => {
@@ -70,7 +72,7 @@ const StudentList = ({addStudent}) => {
 
         fetchData();
 
-    }, [addStudent]);
+    }, [addStudent, handleDelete]);
 
     return (
         <Paper className={classes.root}>

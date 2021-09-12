@@ -56,7 +56,14 @@ router.post('/', async (req, res) => {
         // if some error occurs
         res.status(409).json({ message: error.message });
     }
-})
+});
+
+// deleting a student
+router.delete('/:id', async (req, res) => {
+    await Student.findByIdAndDelete(req.params.id)
+        .then(result => res.status(200).json(result))
+        .catch(err => res.status(404).json({ message: err.message }));
+});
 
 // exporting the student routes
 module.exports = router;
