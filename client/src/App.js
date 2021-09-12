@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // styles
 import './App.css';
@@ -9,6 +9,9 @@ import StudentList from './component/student-list/StudentList';
 import AddStudent from './component/add-student/AddStudent';
 
 const App = () => {
+    const [addStudent, setAddStudent] = useState(0);
+
+    const handleAddStudent = () => setAddStudent(addStudent + 1);
     return (
         <>
         <div className='container-fluid mx-auto'>
@@ -24,12 +27,12 @@ const App = () => {
                 
                 <div className='col-lg-7 col-xl-7 col-xxl-7 p-2 app_body_box'>
                     <h2 className='text-center'>Students List</h2>
-                    <StudentList />
+                    <StudentList addStudent={addStudent} />
                 </div>
 
                 <div className='col-lg-4 col-xl-4 col-xxl-4 p-2 app_body_box'>
                     <h2 className='text-center'>Add Student</h2>
-                    <AddStudent />
+                    <AddStudent handleAddStudent={handleAddStudent} />
                 </div>
             
                 <div className='mt-5 p-0 m-0'>

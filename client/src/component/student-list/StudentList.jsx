@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+// axios
+import axios from 'axios';
+
+// material components
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -15,13 +20,14 @@ const useStyles = makeStyles({
     borderRadius: 10,
     overflow: 'hidden'
   },
-  container: {
+    container: {
+      minHeight: '50vh',
       maxHeight: '70vh',
       borderRadius: 10,
 
       '& .MuiTable-root': {
         borderRadius: 10,
-          border: '2px solid #eee'
+          border: '2px solid #eee',
       },
 
       '& .MuiTableHead-root .MuiTableRow-root .MuiTableCell-root': {
@@ -31,9 +37,21 @@ const useStyles = makeStyles({
   },
 });
 
-const StudentList = () => {
+const StudentList = ({addStudent}) => {
+    const [studentList, setStudentList] = useState([]);
 
     const classes = useStyles();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await axios.get('http://localhost:5000/api/students')
+                .then(result => setStudentList(result.data))
+                .catch(err => console.log(err.message));
+        };
+
+        fetchData();
+
+    }, [addStudent]);
 
     return (
         <Paper className={classes.root}>
@@ -50,12 +68,12 @@ const StudentList = () => {
                 
                     <TableBody>
                         {
-                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(i => (
+                            studentList?.map(i => (
                                 <TableRow key={i}>
-                                    <TableCell>xyz</TableCell>
-                                    <TableCell>xyz</TableCell>
-                                    <TableCell>xyz</TableCell>
-                                    <TableCell>xyz</TableCell>
+                                    <TableCell>{i?.regNo}</TableCell>
+                                    <TableCell style={{textTransform: 'capitalize'}}>{i?.name}</TableCell>
+                                    <TableCell>{i?.grade}</TableCell>
+                                    <TableCell>{i?.section}</TableCell>
                                 </TableRow>
                             ))
                         }

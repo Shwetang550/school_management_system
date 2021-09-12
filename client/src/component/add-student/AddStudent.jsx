@@ -31,9 +31,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddStudent = () => {
+const AddStudent = ({handleAddStudent}) => {
     const [student, setStudent] = React.useState({
-        regNo: 0,
+        regNo: null,
         name: '',
         grade: '',
         section: '',
@@ -47,6 +47,14 @@ const AddStudent = () => {
         await axios.post('http://localhost:5000/api/students', student)
             .then(result => console.log(result))
             .catch(err => console.log(err.message));
+        
+        setStudent({
+            regNo: 0,
+            name: '',
+            grade: '',
+            section: '',
+        });
+        handleAddStudent();
     }
 
     return (
@@ -58,6 +66,7 @@ const AddStudent = () => {
                 id="outlined-basic"
                 label="Registration Number"
                 variant="outlined"
+                required
                 value={student.regNo}
                 onChange={(event) => setStudent({...student, regNo: event.target.value})}
             />
@@ -65,6 +74,7 @@ const AddStudent = () => {
                 id="outlined-basic"
                 label="Name"
                 variant="outlined"
+                required
                 value={student.name}
                 onChange={(event) => setStudent({...student, name: event.target.value})}
             />
@@ -93,7 +103,7 @@ const AddStudent = () => {
             <Button
                 type='submit'
                 variant='contained'
-                style={{backgroundColor: '#121111', color: '#fff'}}
+                style={{backgroundColor: '#121111', color: '#fff', marginTop: '1rem'}}
             >Add Student</Button>
         </form>
     )
