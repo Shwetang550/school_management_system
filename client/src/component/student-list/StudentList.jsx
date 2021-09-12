@@ -43,8 +43,8 @@ const StudentList = () => {
                         <TableRow>
                             <TableCell>Registration Number</TableCell>
                             <TableCell>Name</TableCell>
+                            <TableCell>Grade</TableCell>
                             <TableCell>Section</TableCell>
-                            <TableCell>Subjects</TableCell>
                         </TableRow>
                     </TableHead>
                 

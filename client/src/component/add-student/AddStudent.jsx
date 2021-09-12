@@ -29,11 +29,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddStudent = () => {
+    const [student, setStudent] = React.useState({
+        regNo: 0,
+        name: '',
+        grade: '',
+        section: '',
+    });
 
     const classes = useStyles();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(student);
     }
 
     return (
@@ -41,24 +48,41 @@ const AddStudent = () => {
             onSubmit={handleSubmit}
             className={classes.formContainer}
         >
-            <TextField id="outlined-basic" label="Registration Number" variant="outlined" />
-            <TextField id="outlined-basic" label="Name" variant="outlined" />
+            <TextField
+                id="outlined-basic"
+                label="Registration Number"
+                variant="outlined"
+                value={student.regNo}
+                onChange={(event) => setStudent({...student, regNo: event.target.value})}
+            />
+            <TextField
+                id="outlined-basic"
+                label="Name"
+                variant="outlined"
+                value={student.name}
+                onChange={(event) => setStudent({...student, name: event.target.value})}
+            />
+            <TextField
+                id="outlined-basic"
+                label="Grade"
+                variant="outlined"
+                value={student.grade}
+                onChange={(event) => setStudent({...student, grade: event.target.value})}
+            />
             
             <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Section</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
-                    // onChange={handleChange}
+                    value={student.section}
+                    onChange={(event) => setStudent({...student, section: event.target.value})}
                 >
                 <MenuItem value={'A'}>A</MenuItem>
                 <MenuItem value={'B'}>B</MenuItem>
                 <MenuItem value={'C'}>C</MenuItem>
                 </Select>
             </FormControl>
-            
-            <TextField id="outlined-basic" label="Subjects" variant="outlined" />
 
             <Button
                 type='submit'
