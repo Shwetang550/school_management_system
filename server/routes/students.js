@@ -9,28 +9,18 @@ const studentSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    registrationNumber: {
+    regNo: {
         type: Number,
         required: true,
     },
     grade: {
         type: String,
-        // required: true,
+        required: true,
     },
-    // isStudent: {
-    //     type: Boolean,
-    //     required: function () {
-    //         if (parseInt(this.grade) >= 1 && parseInt(this.grade) <= 12)
-    //             return true;
-    //         else
-    //             return false;
-    //     }
-    // },
     section: {
         type: String,
-        default: 'A',
+        default: 'D',
     },
-    subjects: [String]
 });
 
 // creating a model of studentSchema
@@ -55,8 +45,7 @@ router.post('/', async (req, res) => {
         name: req.body.name,
         registrationNumber: req.body.registrationNumber,
         grade: req.body.grade,
-        section: req.body.section,
-        subjects: req.body.subjects
+        section: req.body.section
     });
 
     try {
