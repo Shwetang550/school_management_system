@@ -18,6 +18,7 @@ import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { IconButton } from '@material-ui/core';
+import EditStudent from '../edit-student/EditStudent';
 
 const useStyles = makeStyles({
   root: {
@@ -52,8 +53,9 @@ const useStyles = makeStyles({
   }
 });
 
-const StudentList = ({addStudent}) => {
+const StudentList = ({addStudent, handleAddStudent}) => {
     const [studentList, setStudentList] = useState([]);
+    const [editStudent, setEditStudent] = useState(false);
 
     const classes = useStyles();
 
@@ -61,7 +63,11 @@ const StudentList = ({addStudent}) => {
         await axios.delete(`http://localhost:5000/api/students/${id}`)
             .then(result => alert(result.data.name + " Deleted"))
             .catch(err => console.log(err.message));
-    }
+        handleAddStudent();
+    };
+
+    const handleEdit = () => setEditStudent(true);
+    const handleCloseEdit = () => setEditStudent(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,7 +78,7 @@ const StudentList = ({addStudent}) => {
 
         fetchData();
 
-    }, [addStudent, handleDelete]);
+    }, [addStudent]);
 
     return (
         <Paper className={classes.root}>
@@ -91,13 +97,20 @@ const StudentList = ({addStudent}) => {
                     <TableBody>
                         {
                             studentList?.map(i => (
+                                <>
                                 <TableRow key={i._id} className={classes.studentRow}>
                                     <TableCell align='center'>{i?.regNo}</TableCell>
                                     <TableCell align='center' style={{textTransform: 'capitalize'}}>{i?.name}</TableCell>
                                     <TableCell align='center'>{i?.grade}</TableCell>
                                     <TableCell align='center'>{i?.section}</TableCell>
                                     <TableCell align='center'>
-                                        <IconButton edge="end"><EditIcon /></IconButton>{" "}|{" "}
+                                        <IconButton
+                                            edge="end"
+                                            onClick={handleEdit}
+                                        >
+                                            <EditIcon />
+                                        </IconButton>
+                                        {" "}|{" "}
                                         <IconButton
                                             edge="start"
                                             onClick={() => handleDelete(i._id)}
@@ -106,6 +119,17 @@ const StudentList = ({addStudent}) => {
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>
+
+                                    {
+                                        editStudent &&
+                                        <EditStudent
+                                            open={editStudent}
+                                            handleClose={handleCloseEdit}
+                                            student={i}
+                                            handleAddStudent={handleAddStudent}
+                                        />
+                                    }
+                                </>
                             ))
                         }
                     </TableBody>

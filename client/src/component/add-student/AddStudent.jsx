@@ -31,35 +31,61 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddStudent = ({handleAddStudent}) => {
+const AddStudent = ({
+    id,
+    handleAddStudent,
+    name='',
+    regNo=null,
+    section='',
+    grade='',
+    update = false,
+    handleClose
+}) => {
     const [student, setStudent] = React.useState({
-        regNo: null,
-        name: '',
-        grade: '',
-        section: '',
+        regNo: regNo,
+        name: name,
+        grade: grade,
+        section: section,
     });
 
     const classes = useStyles();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         await axios.post('http://localhost:5000/api/students', student)
             .then(result => console.log(result))
             .catch(err => console.log(err.message));
         
         setStudent({
-            regNo: 0,
+            regNo: null,
             name: '',
             grade: '',
             section: '',
         });
         handleAddStudent();
-    }
+    };
+
+    const handleUpdate = async (event) => {
+        event.preventDefault();
+        
+        await axios.put(`http://localhost:5000/api/students/${id}`, {_id: id, ...student})
+            .then(result => alert(result.data.name + " Updated"))
+            .catch(err => console.log(err.message));
+        
+        setStudent({
+            regNo: null,
+            name: '',
+            grade: '',
+            section: '',
+        });
+        handleAddStudent();
+        handleClose();
+    };
 
     return (
         <form
-            onSubmit={handleSubmit}
+            onSubmit={update ? handleUpdate : handleSubmit}
             className={classes.formContainer}
         >
             <TextField
@@ -104,7 +130,7 @@ const AddStudent = ({handleAddStudent}) => {
                 type='submit'
                 variant='contained'
                 style={{backgroundColor: '#121111', color: '#fff', marginTop: '1rem'}}
-            >Add Student</Button>
+            >{update ? 'Update' : 'Add'} Student</Button>
         </form>
     )
 }

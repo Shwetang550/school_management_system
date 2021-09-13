@@ -31,7 +31,7 @@ const App = () => {
                 
                 <div className='col-lg-7 col-xl-7 col-xxl-7 p-3 app_body_box'>
                     <h2 className='text-center'>Students List</h2>
-                    <StudentList addStudent={addStudent} />
+                    <StudentList addStudent={addStudent} handleAddStudent={handleAddStudent} />
                 </div>
 
                 <div className='col-lg-4 col-xl-4 col-xxl-4 p-3 app_body_box'>
