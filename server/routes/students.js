@@ -65,5 +65,17 @@ router.delete('/:id', async (req, res) => {
         .catch(err => res.status(404).json({ message: err.message }));
 });
 
+// updating student 
+router.put('/:id', async (req, res) => {
+    await Student.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        regNo: req.body.regNo,
+        grade: req.body.grade,
+        section: req.body.section
+    }, { new: true })
+        .then(result => res.status(201).json(result))
+        .catch(err => res.status(404).json({ message: err.message }));
+});
+
 // exporting the student routes
 module.exports = router;
