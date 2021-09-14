@@ -53,7 +53,7 @@ const AddStudent = ({
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        await axios.post('http://localhost:5000/api/students', student)
+        await axios.post('https://student-management-101.herokuapp.com/api/students', student)
             .then(result => console.log(result))
             .catch(err => console.log(err.message));
         
@@ -69,7 +69,7 @@ const AddStudent = ({
     const handleUpdate = async (event) => {
         event.preventDefault();
         
-        await axios.put(`http://localhost:5000/api/students/${id}`, {_id: id, ...student})
+        await axios.put(`https://student-management-101.herokuapp.com/api/students/${id}`, {_id: id, ...student})
             .then(result => alert(result.data.name + " Updated"))
             .catch(err => console.log(err.message));
         

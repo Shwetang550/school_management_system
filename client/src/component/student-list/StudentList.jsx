@@ -60,7 +60,7 @@ const StudentList = ({addStudent, handleAddStudent}) => {
     const classes = useStyles();
 
     const handleDelete = async (id) => {
-        await axios.delete(`http://localhost:5000/api/students/${id}`)
+        await axios.delete(`https://student-management-101.herokuapp.com/api/students/${id}`)
             .then(result => alert(result.data.name + " Deleted"))
             .catch(err => console.log(err.message));
         handleAddStudent();
@@ -71,7 +71,7 @@ const StudentList = ({addStudent, handleAddStudent}) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get('http://localhost:5000/api/students')
+            await axios.get('https://student-management-101.herokuapp.com/api/students')
                 .then(result => setStudentList(result.data))
                 .catch(err => console.log(err.message));
         };

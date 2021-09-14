@@ -3,6 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+// dotenv package
+require('dotenv').config();
+
 const app = express();
 
 // cors
@@ -23,7 +26,7 @@ app.use('/api/students', studentRoutes);
 const PORT = process.env.PORT || 5000;
 
 // mongodb connection (locally) and port listener
-mongoose.connect('mongodb://localhost/management')
+mongoose.connect('mongodb+srv://shwetang550:shwetang550@cluster0.vzlfv.mongodb.net/management?retryWrites=true&w=majority')
     .then(() => app.listen(PORT, () => console.log(`Successfully connected to Database and running on Port ${PORT}...`)))
     .catch(err => console.log(err.message));
 
